@@ -1,0 +1,43 @@
+{% extends "mysite/base.html" %}
+
+{% block content %}
+
+  {% if periodsought = 'current' %}
+
+    <a class="btn btn-default" href="{% url 'event_list'   'notcurrent' %}" >
+    <span>View past events and deleted events</span></a>
+    <a class="btn btn-default" href="{% url 'event_insert' function='insert' %}" >
+    <span>Add a new event</span></a>
+
+  {% else %}
+
+    <a class="btn btn-default" href="{% url 'event_list' 'current'  %}" ><span>View current events</span></a>
+    <a class="btn btn-default" href="{% url 'event_insert' function='insert' %}" >
+    <span>Add a new event</span></a>
+
+    <h1> Events that have been deleted or become outdated</h1>
+  {% endif %}
+
+  {% for event in events %}
+    <h2 class="date" >
+    {{event.event_date|date:"l" }}
+    {{event.event_date|date:"jS F Y"}}
+    </h2>
+    <h2 class="item" >
+    <a class="btn btn-default" href="{% url 'event_process' pk=event.pk function='update' %}">
+    <span class="glyphicon glyphicon-pencil"></span></a>
+    {% if periodsought = 'current' %}
+      <a class="btn btn-default" href="{% url 'event_process' pk=event.pk function='deletetemp' %}">
+      <span class="glyphicon glyphicon-remove"></span></a>
+    {% else %}
+      <a class="btn btn-default" href="{% url 'event_process' pk=event.pk function='deleteperm' %} ">
+      <span class="glyphicon glyphicon-remove"></span></a>
+    {% endif %}
+
+    <a class="item"            href="{% url 'event_process' pk=event.pk function='detail' %}">     {{event.reference}}</a>
+    </h2>
+  {% endfor %}
+
+{% endblock content %}
+
+

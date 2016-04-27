@@ -1,0 +1,46 @@
+{% extends "mysite/base.html" %}
+
+{% block content %}
+  <div class="person">
+    <h2>
+    <a class="btn btn-default" href="{% url 'event_list'   'current'  %}" ><span>View current events</span></a>
+    <a class="btn btn-default" href="{% url 'event_list'   'notcurrent' %}" ><span>View past events and deleted events</span></a>
+    <a class="btn btn-default" href="{% url 'event_insert' function='insert' %}" ><span>Add a new event</span></a>
+    </h2>
+    </h2>
+    <a class="btn btn-default" href="{% url 'event_process' pk=event.pk function='update' %}">
+    <span>Update this event</span></a>
+    {% if event_status_now = 'live' %}
+      <a class="btn btn-default" href="{% url 'event_process' pk=event.pk function='deletetemp' %}">
+      <span>Mark this event as deleted</span></a>
+      <a class="btn btn-default" href="{% url 'event_process' pk=event.pk function='repeat' %} ">
+      <span>Repeat this event</span></a>
+    {% else %}
+      {% if event_status_now = 'deletednonpast' %}
+        <a class="btn btn-default" href="{% url 'event_process' pk=event.pk function='restore' %} ">
+        <span>Restore this event</span></a>
+      {% else %}
+        <a class="btn btn-default" href="{% url 'event_process' pk=event.pk function='repeat' %} ">
+        <span>Publish this event with a current date</span></a>
+      {% endif %}
+      <a class="btn btn-default" href="{% url 'event_process' pk=event.pk function='deleteperm' %} ">
+      <span>Delete this event irrevocably</span></a>
+    {% endif %}
+
+    <h2 class="date">
+    <span class="date">{{event.event_date|date:"l" }} {{event.event_date|date:"jS F Y"}}</span>
+    </h2>
+
+    <h2 class="date">
+    <span class="item">{{ event.reference }}</span>
+    </h2>
+    {% if persons %}
+      <h2 class="date">Persons</h2><h2 class="item">{{ persons }}</h2>
+    {% endif %}
+    {% if event.notes %}
+      <h2 class="date">Notes</h2><h2 class="item">{{ event.notes }}</h2>
+    {% endif %}
+  </div>
+
+
+{% endblock %}

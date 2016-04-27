@@ -1,0 +1,22 @@
+{% extends "mysite/base.html" %}
+
+
+
+{% block content %}
+<style>
+body {
+    background-color:#A0C0A0;
+}
+</style>
+
+    <h1>New, or amended, event</h1>
+    {% if error_message %}
+      <h2 class="error">{{error_message}}</h2>
+    {% endif %}
+    <form method="POST" class="event-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}
+
+
