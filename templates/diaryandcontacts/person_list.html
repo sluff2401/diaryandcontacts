@@ -1,0 +1,32 @@
+{% extends "mysite/base.html" %}
+
+{% block content %}
+
+
+      <h2>Contacts</h2>
+
+      <table>
+      {% for x in persons %}
+        <tr>
+
+
+        <td>{{ x.full_name }}&nbsp;</td>
+        <td>{{ x.email }}&nbsp;</td>
+        <td>{{ x.phone_a }}&nbsp;</td>
+        <td>{{ x.created_date|date:"jS F Y" }}&nbsp;</td>
+
+        </tr>
+      </h2>
+      {% endfor %}
+      </table>
+{% endblock content %}
+    {% comment %}
+
+          <td>&nbsp;&nbsp;<a class="item" href="{% url 'contactdetail' pk=x.pk %}">{{  x.display_name }}&nbsp;</a></td>
+
+<a class="btn btn-default" href="{% url 'contactinsert' %}" >Add a contact</span></a>
+      <a class="btn btn-default" href="{% url 'events.views.event_list' %}">View Events</a>
+
+ <td><a class="btn btn-default" href="{% url 'contactdelete' pk=x.pk confirmed='no' %}">
+        <span>Remove</span></a></td>
+    {% endcomment %}

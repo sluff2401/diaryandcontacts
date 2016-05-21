@@ -11,7 +11,8 @@
 
   {% else %}
 
-    <a class="btn btn-default" href="{% url 'event_list' 'current'  %}" ><span>View current events</span></a>
+    <a class="btn btn-default" href="{% url 'event_list' 'current'  %}" >
+    <span>View current events</span></a>
     <a class="btn btn-default" href="{% url 'event_insert' function='insert' %}" >
     <span>Add a new event</span></a>
 

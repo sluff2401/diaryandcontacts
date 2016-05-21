@@ -1,0 +1,27 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+{% if error_message %}
+  <h1> {{error_message}}</h1>
+{% endif %}
+  <div class="person">
+    <h2>
+    <a class="btn btn-default" href="{% url 'contactlist' %}" ><span>View users</span></a>
+
+    </h2>
+    {
+
+  <table>
+  <h2>
+    <tr><td>&nbsp;&nbsp;{{ person.full_name }}&nbsp;</td>
+  </h2>
+  </table>
+  </div>
+{% endblock %}
+{% comment %}
+    <a class="btn btn-default" href="{% url 'homepage' %}">View Events</a>
+
+      <a class="btn btn-default" href="{% url 'contactupdate' pk=person.pk %}">
+      <span>Update this member</span></a>
+      <a class="btn btn-default" href="{% url 'contactdelete' pk=person.pk confirmed='no' %}">
+      <span>Remove this member</span></a>
+{% endcomment %}
