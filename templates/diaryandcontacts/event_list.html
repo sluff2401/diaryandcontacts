@@ -8,13 +8,16 @@
     <span>View past events and deleted events</span></a>
     <a class="btn btn-default" href="{% url 'event_insert' function='insert' %}" >
     <span>Add a new event</span></a>
-
+    <a class="btn btn-default" href="{% url 'person_process' function='insert' pk=0 %}" >
+    <span>Add a new contact</span></a>
   {% else %}
 
     <a class="btn btn-default" href="{% url 'event_list' 'current'  %}" >
     <span>View current events</span></a>
     <a class="btn btn-default" href="{% url 'event_insert' function='insert' %}" >
     <span>Add a new event</span></a>
+    <a class="btn btn-default" href="{% url 'person_process' function='insert' pk=0 %}" >
+    <span>Add a new contact</span></a>
 
     <h1> Events that have been deleted or become outdated</h1>
   {% endif %}

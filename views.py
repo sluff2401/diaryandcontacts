@@ -77,7 +77,25 @@ def person_process(request, function="update", pk='0'):
   else:
     person                                    = get_object_or_404(Person, pk=pk)
                                               # i.e. function in ['detail', 'update', 'repeat', 'deleteperm']
-  if request.method                           == "POST":                # i.e. have arrived here from 'diaryandcontacts/person_input_form.html'
+  if request.method                           != "POST":                                   # i.e. request.method == "GET":
+
+    if function                               == 'insert':
+      form = PersonForm()
+      return render(request, 'diaryandcontacts/person_input_form.html', {'form': form})
+    elif function                           == 'deleteperm':
+      person.delete()
+      return redirect('diaryandcontacts.views.person_list')
+    elif function                           == 'detail':
+      circles_list = []
+      for circle in person.circles.all():
+        circles_list.append(circle.full_name)
+      circles_string   = ', '.join(circles_list)
+      return render(request, 'diaryandcontacts/person_detail.html', {'person': person, 'circles':circles_string})
+                                                                                            # no data input, just buttons
+    else:                                                                               # i.e. function in ['update','repeat']
+      form = PersonForm(instance=person)
+      return render(request, 'diaryandcontacts/person_input_form.html', {'form': form})                   # ask user for person details
+  else:                                                                                    # i.e. request.method == "POST":
 
     if function                               in ['insert', 'repeat']:
       form                                    = PersonForm(request.POST)
@@ -102,23 +120,10 @@ def person_process(request, function="update", pk='0'):
     else:                                                                                  # i.e. form is not valid, ask user to resubmit it
       return render(request, 'diaryandcontacts/person_input_form.html', {'form': form})
 
-  else:                                                                                    # i.e. request.method == "GET":
-    if function                               == 'insert':
-      form = PersonForm()
-      return render(request, 'diaryandcontacts/person_input_form.html', {'form': form})
-    elif function                           == 'deleteperm':
-      person.delete()
-      return redirect('diaryandcontacts.views.person_list')
-    elif function                           == 'detail':
-      circles_list = []
-      for circle in person.circles.all():
-        circles_list.append(circle.full_name)
-      circles_string   = ', '.join(circles_list)
-      return render(request, 'diaryandcontacts/person_detail.html', {'person': person, 'circles':circles_string})
-                                                                                            # no data input, just buttons
-    else:                                                                               # i.e. function in ['update','repeat']
-      form = PersonForm(instance=person)
-      return render(request, 'diaryandcontacts/person_input_form.html', {'form': form})                   # ask user for person details
+
+
+
+
 
 def event_list(request, periodsought='current'):
   stored_event_date = '2000-01-01'
@@ -146,37 +151,7 @@ def event_process(request, function="update", pk='0'):
                                               # i.e. function in ['detail', 'update', 'repeat',
                                               #'restore', 'bookinto', 'leave', 'delete', 'deleteperm']
 
-  if request.method                           == "POST":                # i.e. have arrived here from 'diaryandcontacts/event_input_form.html'
-
-    if function                               in ['insert', 'repeat']:
-      form                                    = EventForm(request.POST)
-    else:
-      form                                    = EventForm(request.POST, instance=event)
-                                              # i.e. function == 'update'
-                                              # function in ['detail', 'restore','bookinto', 'leave', 'delete', 'deleteperm'] don't go here
-
-    if form.is_valid():
-      event                                   = form.save(commit=False)
-
-      if event.event_date                     < timezone.localtime(timezone.now()).date():
-        periodsought                          = 'notcurrent'
-      else:
-        periodsought                          = 'current'
-
-      user                                    = User.objects.get(id=request.user.id)
-
-      event.author_name                     = user.username
-      event.author                          = user
-
-      event.save()
-      form.save_m2m()
-
-      return redirect('diaryandcontacts.views.event_list', periodsought)
-
-    else:                                                                                  # i.e. form is not valid, ask user to resubmit it
-      return render(request, 'diaryandcontacts/event_input_form.html', {'form': form})
-
-  else:                                                                                    # i.e. request.method == "GET":
+  if request.method                           != "POST":                # i.e. request.method == "GET":
     if function                               == 'insert':
       form = EventForm()
       return render(request, 'diaryandcontacts/event_input_form.html', {'form': form})
@@ -227,6 +202,41 @@ def event_process(request, function="update", pk='0'):
       else:                                                                               # i.e. function in ['update','repeat']
         form = EventForm(instance=event)
         return render(request, 'diaryandcontacts/event_input_form.html', {'form': form})                   # ask user for event details
+
+  else:                                                                   # i.e. request.method == "POST":                 
+    if function                               in ['insert', 'repeat']:
+      form                                    = EventForm(request.POST)
+    else:
+      form                                    = EventForm(request.POST, instance=event)
+                                              # i.e. function == 'update'
+                                              # function in ['detail', 'restore','bookinto', 'leave', 'delete', 'deleteperm'] don't go here
+
+    if form.is_valid():
+      event                                   = form.save(commit=False)
+
+      if event.event_date                     < timezone.localtime(timezone.now()).date():
+        periodsought                          = 'notcurrent'
+      else:
+        periodsought                          = 'current'
+
+      user                                    = User.objects.get(id=request.user.id)
+
+      event.author_name                     = user.username
+      event.author                          = user
+
+      event.save()
+      form.save_m2m()
+
+      return redirect('diaryandcontacts.views.event_list', periodsought)
+
+    else:                                                                                  # i.e. form is not valid, ask user to resubmit it
+      return render(request, 'diaryandcontacts/event_input_form.html', {'form': form})
+
+
+
+
+
+
 
 
 
