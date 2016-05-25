@@ -289,7 +289,7 @@ def contact_process(request, function="update", pk='0'):
       return redirect('diaryandcontacts.views.contact_list')
     elif function                           == 'detail':
       circles_list = []
-      for circle in contact.circles.all():
+      for circle in person.circles.all():
         circles_list.append(circle.full_name)
       circles_string   = ', '.join(circles_list)
       return render(request, 'diaryandcontacts/contact_detail.html', {'contact': contact, 'circles':circles_string})
@@ -397,7 +397,7 @@ def event_process(request, function="update", pk='0'):
         return redirect('diaryandcontacts.views.event_list', periodsought)
       elif function                           == 'detail':
         contacts_list = []
-        for contact in event.contacts.all():
+        for contact in event.persons.all():
             contacts_list.append(contact.full_name)
         contacts_string   = ', '.join(contacts_list)
         return render(request, 'diaryandcontacts/event_detail.html', {'event': event, 'event_status_now': event_status_now, 'contacts':contacts_string})
@@ -415,7 +415,7 @@ def contact_detail(request, pk):
   contact                                    = get_object_or_404(Person, pk=pk)
 
   circles_list = []
-  for circle in contact.circles.all():
+  for circle in person.circles.all():
     circles_list.append(circle.full_name)
   circles_string   = ', '.join(circles_list)
   return render(request, 'diaryandcontacts/contact_detail.html', {'contact': contact, 'circles':circles_string})

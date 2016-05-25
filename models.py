@@ -34,7 +34,6 @@ class Event(models.Model):
     event_date                           = models.DateField          (default=timezone.now)
     reference                            = models.CharField          (max_length=200, blank=True, default='')
     persons                              = models.ManyToManyField    ('Person', blank=True)
-    #employers                            = models.ManyToManyField    ('Employer', blank=True)
     notes                                = models.TextField          (blank=True, null=True)
     created_date                         = models.DateTimeField      (default=timezone.now)
     published_date                       = models.DateTimeField      (blank=True, null=True)
