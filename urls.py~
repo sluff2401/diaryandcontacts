@@ -5,7 +5,7 @@ from .                       import views
 
 urlpatterns = [
     url(r'^$',                                                      views.event_list),
-    url(r'^event/list/(?P<periodsought>[a-z]+)/$',                  views.event_list,                   name='eventlist'),
+    url(r'^event/list/(?P<periodsought>[a-z]+)/$',                  views.event_list,                   name='event_list'),
     url(r'^event/process/(?P<function>[a-z]+)/$',                   views.event_process,                name='event_insert'),
     url(r'^event/process/(?P<function>[a-z]+)/(?P<pk>[0-9]+)/$',    views.event_process,                name='event_process'),
     url(r'^contact/list/$',                                          views.contact_list,                  name='contactlist'),

@@ -1,9 +1,7 @@
 {% extends "mysite/base.html" %}
 
 {% block content %}
-    <a class="btn btn-default" href="{% url 'contact_process' function='insert' pk=0 %}" >
-    <span>Add a new contact</span></a>
-    
+
 
       <h2>Contacts</h2>
 

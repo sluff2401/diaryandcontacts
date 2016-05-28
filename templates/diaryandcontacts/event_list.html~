@@ -8,12 +8,8 @@
     <span>View archive</span></a>
     <a class="btn btn-default" href="{% url 'event_insert' function='insert' %}" >
     <span>Add an event</span></a>
-    <a class="btn btn-default" href="{% url 'contactlist' %}" >
-    <span>View contacts</span></a>
     <a class="btn btn-default" href="{% url 'contact_process' function='insert' pk=0 %}" >
     <span>Add a contact</span></a>
-    <a class="btn btn-default" href="{% url 'circlelist' %}" >
-    <span>View circles</span></a>
     <a class="btn btn-default" href="{% url 'circle_process' function='insert' pk=0 %}" >
     <span>Add a circle</span></a>
   {% else %}

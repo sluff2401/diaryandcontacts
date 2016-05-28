@@ -2,10 +2,10 @@
 
 {% block content %}
 
-   
+    <h2>
     <a class="btn btn-default" href="{% url 'contactlist' %}" >
     <span>View users</span></a>
-   
+    </h2>
 
   <div class="person">
     <a class="btn btn-default" href="{% url 'contact_process' pk=contact.pk function='update' %}">

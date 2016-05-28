@@ -61,7 +61,9 @@ def contact_detail(request, pk):
                                                                                             # no data input, just buttons
 @login_required
 def event_detail(request, pk='0'):
+
   event                                     = get_object_or_404(Event, pk=pk)
+    
       # decide which period of events to display afterwards
   if event.event_date                     <  timezone.localtime(timezone.now()).date():
     event_status_now                      =  'past'

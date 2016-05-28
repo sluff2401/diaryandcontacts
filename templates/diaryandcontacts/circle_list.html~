@@ -1,20 +1,18 @@
 {% extends "mysite/base.html" %}
 
 {% block content %}
-    <a class="btn btn-default" href="{% url 'contact_process' function='insert' pk=0 %}" >
-    <span>Add a new contact</span></a>
     
+    <a class="btn btn-default" href="{% url 'circle_process' function='insert' pk=0 %}" >
+    <span>Add a new circle</span></a>
 
-      <h2>Contacts</h2>
+      <h2>Circles</h2>
 
       <table>
-      {% for x in contacts %}
+      {% for x in circles %}
         <tr>
 
-        <td>&nbsp;&nbsp;<a class="item" href="{% url 'contactdetail' pk=x.pk %}">{{  x.full_name }}&nbsp;</a></td>
-        <td>{{ x.email }}&nbsp;</td>
-        <td>{{ x.phone_a }}&nbsp;</td>
-        <td>{{ x.created_date|date:"jS F Y" }}&nbsp;</td>
+        <td>&nbsp;&nbsp;<a class="item" href="{% url 'circledetail' pk=x.pk %}">{{  x.full_name }}&nbsp;</a></td>
+
 
         </tr>
       </h2>
@@ -22,6 +20,11 @@
       </table>
 {% endblock content %}
     {% comment %}
+
+        <td>{{ x.email }}&nbsp;</td>
+        <td>{{ x.phone_a }}&nbsp;</td>
+        <td>{{ x.created_date|date:"jS F Y" }}&nbsp;</td>
+
 
 
 <a class="btn btn-default" href="{% url 'contactinsert' %}" >Add a contact</span></a>

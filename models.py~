@@ -15,7 +15,7 @@ class Person(models.Model):
     phone_a                              = models.CharField     (max_length=15, blank=True, null=True)
     phone_b                              = models.CharField     (max_length=15, blank=True, null=True)
     phone_c                              = models.CharField     (max_length=15, blank=True, null=True)
-    circles                              = models.ManyToManyField    ('Circle', blank=True)
+    circles                              = models.ManyToManyField    ('Circle', blank=True, null=True)
     hcp                                  = models.BooleanField  (default=False)
     plus                                 = models.BooleanField  (default=False)
     esg                                  = models.BooleanField  (default=False)

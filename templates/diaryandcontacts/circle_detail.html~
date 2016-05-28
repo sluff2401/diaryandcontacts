@@ -1,0 +1,33 @@
+{% extends "mysite/base.html" %}
+
+{% block content %}
+    <a class="btn btn-default" href="{% url 'circlelist' %}" >
+    <span>View circles</span></a>
+  <div class="person">
+
+    <h2>
+    <a class="btn btn-default" href="{% url 'circle_process' pk=circle.pk function='update' %}">
+    <span>Update this circle</span></a>
+    {% if event_status_now = 'live' %}
+      <a class="btn btn-default" href="{% url 'circle_process' pk=circle.pk function='deleteperm' %}">
+      <span>Delete this circle</span></a>
+    {% endif %}
+    </h2>
+
+    <h2 class="date">
+    <span class="item">{{ circle.full_name  }}</span>
+    </h2>
+
+  </div>
+    {% if contacts %}
+      <h2 class="date">Contacts</h2><h2 class="item">{{ contacts }}</h2>
+    {% endif %}
+{% endblock %}
+{% comment %}
+    <a class="btn btn-default" href="{% url 'homepage' %}">View Events</a>
+
+      <a class="btn btn-default" href="{% url 'contactupdate' pk=person.pk %}">
+      <span>Update this member</span></a>
+      <a class="btn btn-default" href="{% url 'contactdelete' pk=person.pk confirmed='no' %}">
+      <span>Remove this member</span></a>
+{% endcomment %}

@@ -1,0 +1,22 @@
+{% extends "mysite/base.html" %}
+
+{% block content %}
+    
+    <a class="btn btn-default" href="{% url 'circle_process' function='insert' pk=0 %}" >
+    <span>Add a new circle</span></a>
+
+      <h2>Circles</h2>
+
+      <table>
+      {% for x in circles %}
+        <tr>
+        <td>&nbsp;&nbsp;<a class="item" href="{% url 'circledetail' pk=x.pk %}">{{  x.full_name }}&nbsp;</a></td>
+        </tr>
+      </h2>
+      {% endfor %}
+      </table>
+
+{% endblock content %}
+    {% comment %}
+
+    {% endcomment %}
